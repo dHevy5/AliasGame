@@ -39,6 +39,20 @@ const resultsScreen = document.getElementById('resultsScreen');
 const finalScoreEl = document.getElementById('finalScore');
 const restartBtn = document.getElementById('restartBtn');
 
+function setVH() {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+    
+    document.querySelectorAll('.screen').forEach(screen => {
+        screen.style.height = `calc(var(--vh, 1vh) * 100)`;
+    });
+}
+
+// Вызываем при загрузке
+window.addEventListener('resize', setVH);
+window.addEventListener('orientationchange', setVH);
+setVH();
+
 // Инициализация категорий
 function initCategories() {
     const categories = [

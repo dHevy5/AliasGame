@@ -212,6 +212,11 @@ html {
     padding: 10px;
     height: 100vh;
     height: -webkit-fill-available;
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
 }
 
 .game-header {
@@ -468,6 +473,11 @@ html {
     
     .game-footer {
         padding-bottom: max(10px, env(safe-area-inset-bottom));
+        background-color: transparent;
+    }
+
+    body{
+        background-color: #667eea;
     }
 }
 

@@ -8,6 +8,8 @@ const wordsDatabase = {
     cinema: ['Фильм', 'Актер', 'Режиссер', 'Кинотеатр', 'Попкорн', 'Сценарий', 'Камера', 'Звезда', 'Премия', 'Драма']
 };
 
+let canClick = true;
+
 // Состояние приложения
 const appState = {
     selectedCategories: [],
@@ -242,6 +244,8 @@ function showNextWord() {
 // Обработка правильного ответа
 function handleCorrect() {
     if (!appState.gameActive || appState.countdownActive) return;
+
+    canClick = false;
     
     appState.score++;
     appState.currentWordIndex++;
@@ -253,11 +257,17 @@ function handleCorrect() {
     setTimeout(() => {
         correctBtn.style.transform = '';
     }, 100);
+
+    setTimeout(() => {
+        canClick = true;
+    }, 300);
 }
 
 // Обработка неправильного ответа
 function handleWrong() {
     if (!appState.gameActive || appState.countdownActive) return;
+
+    canClick = false;
     
     appState.currentWordIndex++;
     showNextWord();
@@ -267,6 +277,10 @@ function handleWrong() {
     setTimeout(() => {
         wrongBtn.style.transform = '';
     }, 100);
+
+    setTimeout(() => {
+        canClick = true;
+    }, 300);
 }
 
 // Завершение игры

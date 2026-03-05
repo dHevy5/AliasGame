@@ -244,7 +244,7 @@ function showNextWord() {
 
 // Обработка правильного ответа
 function handleCorrect() {
-    if (!appState.gameActive || appState.countdownActive) return;
+    if (!appState.gameActive || appState.countdownActive || !canClick) return;
 
     canClick = false;
     
@@ -266,7 +266,7 @@ function handleCorrect() {
 
 // Обработка неправильного ответа
 function handleWrong() {
-    if (!appState.gameActive || appState.countdownActive) return;
+    if (!appState.gameActive || appState.countdownActive || !canClick) return;
 
     canClick = false;
     

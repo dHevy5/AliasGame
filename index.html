@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Элиас - Игра в слова</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Экран выбора категорий -->
+    <div class="screen screen-categories active">
+        <div class="container">
+            <h1 class="page-title">Выберите категории слов</h1>
+            <p class="page-subtitle">Отметьте темы, слова из которых хотите угадывать</p>
+
+            <div class="categories-grid" id="categoriesGrid">
+                <!-- Категории будут заполняться через JS -->
+            </div>
+
+            <div class="action-button-container">
+                <button class="start-button" id="startGameBtn">Начать игру</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Экран игры -->
+    <div class="screen screen-game">
+        <!-- Верхняя панель -->
+        <div class="game-header">
+            <div class="timer" id="timer">60</div>
+            <div class="score" id="score">0</div>
+        </div>
+
+        <!-- Основное поле с карточкой слова -->
+        <div class="game-main">
+            <div class="word-card" id="wordCard">
+                <div class="countdown" id="countdown">3</div>
+                <div class="word" id="currentWord"></div>
+            </div>
+        </div>
+
+        <!-- Нижняя панель с кнопками -->
+        <div class="game-footer">
+            <button class="action-btn wrong-btn" id="wrongBtn">
+                <span class="btn-icon">✕</span>
+            </button>
+            <div class="progress" id="progress">0/10</div>
+            <button class="action-btn correct-btn" id="correctBtn">
+                <span class="btn-icon">✓</span>
+            </button>
+        </div>
+
+        <!-- Экран результатов -->
+        <div class="results-screen" id="resultsScreen">
+            <div class="results-content">
+                <h2>Раунд завершён!</h2>
+                <div class="final-score" id="finalScore">0</div>
+                <p class="results-message">Отличный результат!</p>
+                <button class="restart-btn" id="restartBtn">Заново</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

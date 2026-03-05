@@ -56,6 +56,34 @@ window.addEventListener('resize', setVH);
 window.addEventListener('orientationchange', setVH);
 setVH();
 
+// Жесткая блокировка масштабирования для iOS Safari
+document.documentElement.addEventListener('touchstart', function (event) {
+    if (event.touches.length > 1) {
+        event.preventDefault();
+    }
+}, { passive: false });
+
+document.documentElement.addEventListener('touchmove', function (event) {
+    if (event.scale && event.scale !== 1) {
+        event.preventDefault();
+    }
+}, { passive: false });
+
+// Блокировка двойного тапа
+let lastTouchEnd = 0;
+document.documentElement.addEventListener('touchend', function (event) {
+    const now = Date.now();
+    if (now - lastTouchEnd <= 300) {
+        event.preventDefault();
+    }
+    lastTouchEnd = now;
+}, { passive: false });
+
+// Блокировка жеста масштабирования
+document.addEventListener('gesturestart', function(event) {
+    event.preventDefault();
+});
+
 // Инициализация категорий
 function initCategories() {
     const categories = [

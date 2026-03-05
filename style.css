@@ -11,16 +11,17 @@ body {
     font-family: 'Inter', sans-serif;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
-    min-height: -webkit-fill-aviable;
+    min-height: -webkit-fill-available;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 0;
     padding: 0;
     overflow: hidden;
 }
 
 html {
-    height: -webkit-fill-aviable;
+    height: -webkit-fill-available;
 }
 
 /* Экраны */
@@ -30,7 +31,7 @@ html {
     left: 0;
     width: 100%;
     height: 100vh;
-    height: -webkit-fill-aviable;
+    height: -webkit-fill-available;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -49,6 +50,7 @@ html {
     padding: 10px;
 }
 
+
 .container {
     max-width: 1200px;
     width: 100%;
@@ -58,7 +60,7 @@ html {
     padding: 20px 15px;
     margin: 10px auto;
     box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-}
+}    
 
 .page-title {
     font-size: 2rem;

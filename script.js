@@ -42,64 +42,6 @@ const resultsScreen = document.getElementById('resultsScreen');
 const finalScoreEl = document.getElementById('finalScore');
 const restartBtn = document.getElementById('restartBtn');
 
-// ЯДЕРНЫЙ ВАРИАНТ для Safari на iOS
-(function() {
-    // Блокируем все мультитач жесты
-    document.addEventListener('touchmove', function(e) {
-        if (e.touches.length > 1) {
-            e.preventDefault();
-            e.stopPropagation();
-            return false;
-        }
-    }, { passive: false, capture: true });
-    
-    // Блокируем жест масштабирования
-    document.addEventListener('gesturestart', function(e) {
-        e.preventDefault();
-        return false;
-    }, { capture: true });
-    
-    document.addEventListener('gesturechange', function(e) {
-        e.preventDefault();
-        return false;
-    }, { capture: true });
-    
-    document.addEventListener('gestureend', function(e) {
-        e.preventDefault();
-        return false;
-    }, { capture: true });
-    
-    // Жестко блокируем любые попытки изменения масштаба
-    let lastScale = 1;
-    document.addEventListener('touchstart', function(e) {
-        lastScale = 1;
-    }, { passive: false, capture: true });
-    
-    document.addEventListener('touchmove', function(e) {
-        if (e.scale && e.scale !== lastScale) {
-            e.preventDefault();
-            lastScale = e.scale;
-        }
-    }, { passive: false, capture: true });
-    
-    // Блокируем двойной тап
-    let lastTouchEnd = 0;
-    document.addEventListener('touchend', function(e) {
-        const now = Date.now();
-        if (now - lastTouchEnd <= 300) {
-            e.preventDefault();
-        }
-        lastTouchEnd = now;
-    }, { passive: false, capture: true });
-    
-    // Блокируем Ctrl+колесо на десктопе (если вдруг)
-    document.addEventListener('wheel', function(e) {
-        if (e.ctrlKey) {
-            e.preventDefault();
-        }
-    }, { passive: false, capture: true });
-})();
-
 function setVH() {
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -409,6 +351,17 @@ function init() {
     initCategories();
     initEventListeners();
 }
+
+// Минимальная защита от зума
+document.addEventListener('touchmove', function(e) {
+    if (e.touches.length > 1) {
+        e.preventDefault();
+    }
+}, { passive: false });
+
+document.addEventListener('gesturestart', function(e) {
+    e.preventDefault();
+});
 
 // Запускаем
 init();

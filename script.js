@@ -59,19 +59,22 @@ setVH();
 // Инициализация категорий
 function initCategories() {
     const categories = [
-        { id: 'animals', name: 'Животные', emoji: '🐾', color: '#FFEAA7' },
-        { id: 'food', name: 'Еда', emoji: '🍽️', color: '#B4E4FF' },
-        { id: 'sport', name: 'Спорт', emoji: '🏃', color: '#D0B7FF' },
-        { id: 'professions', name: 'Профессии', emoji: '💼', color: '#FFB5B5' },
-        { id: 'travel', name: 'Путешествия', emoji: '✈️', color: '#BFF0C2' },
-        { id: 'cinema', name: 'Кино', emoji: '🎬', color: '#FBC8D5' }
+        { id: 'animals', name: 'Животные', emoji: '🐾', color: '#FFEAA7', words: 20 },
+        { id: 'food', name: 'Еда', emoji: '🍽️', color: '#B4E4FF', words: 20 },
+        { id: 'sport', name: 'Спорт', emoji: '🏃', color: '#D0B7FF', words: 20 },
+        { id: 'professions', name: 'Профессии', emoji: '💼', color: '#FFB5B5', words: 20 },
+        { id: 'travel', name: 'Путешествия', emoji: '✈️', color: '#BFF0C2', words: 20 },
+        { id: 'cinema', name: 'Кино', emoji: '🎬', color: '#FBC8D5', words: 20 }
     ];
 
     categoriesGrid.innerHTML = categories.map(cat => `
         <div class="category-card" data-category="${cat.id}">
             <div class="category-image" style="background-color: ${cat.color};">${cat.emoji}</div>
             <div class="category-info">
-                <span class="category-name">${cat.name}</span>
+                <div class="category-name-wrapper">
+                    <span class="category-name">${cat.name}</span>
+                    <span class="category-words-count">${cat.words} слов</span>
+                </div>
                 <label class="checkbox-label">
                     <input type="checkbox" class="checkbox" data-category="${cat.id}"> 
                     <span class="checkbox-custom"></span>
@@ -172,15 +175,20 @@ function startCountdown() {
     countdownEl.textContent = count;
     countdownEl.classList.add('active');
     currentWordEl.textContent = '';
+
+    if (window.countdownInterval) {
+        clearInterval(window.countdownInterval);
+    }
     
-    const countdownInterval = setInterval(() => {
+    window.countdownInterval = setInterval(() => {
         count--;
         if (count > 0) {
             countdownEl.textContent = count;
         } else if (count === 0) {
             countdownEl.textContent = 'Старт!';
         } else {
-            clearInterval(countdownInterval);
+            clearInterval(window.countdownInterval);
+            window.countdownInterval = null;
             countdownEl.classList.remove('active');
             appState.countdownActive = false;
             appState.gameActive = true;
@@ -380,6 +388,39 @@ document.querySelectorAll('.action-btn, .start-button, .restart-btn').forEach(bt
             e.preventDefault();
         }
     }, { passive: false });
+});
+
+const backBtn = document.getElementById('backBtn');
+
+backBtn.addEventListener('click', function() {
+    // Останавливаем таймер игры
+    if (appState.timerInterval) {
+        clearInterval(appState.timerInterval);
+        appState.timerInterval = null;
+    }
+    
+    // Останавливаем отсчет (ВАЖНО!)
+    if (window.countdownInterval) {
+        clearInterval(window.countdownInterval);
+        window.countdownInterval = null;
+    }
+    
+    // Сбрасываем состояние игры
+    appState.gameActive = false;
+    appState.countdownActive = false;
+    
+    // Переключаем на экран категорий
+    screens.game.classList.remove('active');
+    screens.categories.classList.add('active');
+    
+    // Сбрасываем отображение
+    countdownEl.classList.remove('active');
+    countdownEl.textContent = '3'; // Сбрасываем на начальное значение
+    currentWordEl.textContent = '';
+    
+    // Сбрасываем таймер на экране
+    timerEl.textContent = '60';
+    timerEl.style.color = '#ffd700';
 });
 
 // Запускаем

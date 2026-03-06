@@ -194,20 +194,22 @@ html {
 .checkbox:checked + .checkbox-custom::after {
     content: '';
     position: absolute;
-    left: 7px;
-    top: 3px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -60%) rotate(45deg);
+
     width: 5px;
     height: 10px;
     border: solid white;
     border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
+    margin-top: 1px;
+    
 }
 
 .start-button {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
-    border: none;
-    padding: 14px 40px;
+    padding: 12px 40px;
     font-size: 1.2rem;
     font-weight: 600;
     border-radius: 60px;
@@ -215,6 +217,7 @@ html {
     box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
     transition: all 0.3s ease;
     border: 2px solid transparent;
+    background-clip: padding-box;
 }
 
 .start-button:hover {
